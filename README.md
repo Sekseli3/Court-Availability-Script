@@ -25,6 +25,9 @@ This script requires the following Python packages:
 You can install these packages using pip:
 pip install selenium
 
+Additionally WebDrivers need to be enables in safari. Tutorial : https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari 
+
+
 ## Usage
 To run the script, use the following command:
 
