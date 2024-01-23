@@ -12,6 +12,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description="Check tennis court availability")
     parser.add_argument('--days', type=int, default=0, help='Check for how many days in advance')
     parser.add_argument('--place', type=str, default='Tali', help='Place to check for availability')
+    parser.add_argument('--browser', type=str, default='safari', help='Select browser to use safare or chrome')
     return parser.parse_args()
 
 def get_Place(driver,place):
@@ -44,9 +45,13 @@ def extract_court_times(data,court):
     return court_times
 
 #Function to scrape the website
-def check_tennis_court_availability(url, days=0, place='Tali'):
-    # Create a new instance of the Safari driver
-    driver = webdriver.Safari()
+def check_tennis_court_availability(url, browser, days=0, place='Tali'):
+    # Create a new instance of the driver
+    driver = None
+    if browser == 'chrome':
+        driver = webdriver.Chrome()
+    else:
+        driver = webdriver.Safari()
     #wait for the page to load. With smaller times doesn't always work
     driver.implicitly_wait(15)
     # Navigate to the URL
@@ -143,7 +148,7 @@ if __name__ == "__main__":
 
 
     # Get the courts
-    courts = check_tennis_court_availability(tennis_court_url, args.days, args.place)
+    courts = check_tennis_court_availability(tennis_court_url, args.browser, args.days, args.place)
 
     # Extract the times
     getTimes(courts)
